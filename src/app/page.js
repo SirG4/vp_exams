@@ -114,7 +114,7 @@ function Timer({ startTime, endTime }) {
   const statusCfg = {
     upcoming: { label: 'Upcoming',    color: '#6366f1', bg: '#eef2ff' },
     active:   { label: 'In Progress', color: '#000000', bg: '#f0f0f0' },
-    ended:    { label: 'Exam Ended',  color: '#9ca3af', bg: '#f9fafb' },
+    ended:    { label: 'Exam Ended',  color: '#ff0000', bg: '#f9fafb' },
     loading:  { label: 'Loading…',   color: '#d1d5db', bg: '#f9fafb' },
   }[status];
 
