@@ -100,21 +100,12 @@ function DigitalClock() {
     return () => clearInterval(id);
   }, [ready, getServerNow]);
 
-<<<<<<< HEAD
   if (!time) return (
     <div className="flex flex-col items-center justify-center h-full text-gray-300">
       <div className="w-12 h-12 border-4 border-gray-100 border-t-black rounded-full animate-spin mb-4" />
       <p className="text-sm font-medium animate-pulse">Syncing with server...</p>
     </div>
   );
-=======
-  const statusCfg = {
-    upcoming: { label: 'Upcoming',    color: '#6366f1', bg: '#eef2ff' },
-    active:   { label: 'In Progress', color: '#000000', bg: '#f0f0f0' },
-    ended:    { label: 'Exam Ended',  color: '#ff0000', bg: '#f9fafb' },
-    loading:  { label: 'Loading…',   color: '#d1d5db', bg: '#f9fafb' },
-  }[status];
->>>>>>> 66de8c595404d748a84888b41ee25e377c3cdfee
 
   return (
     <div className="flex flex-col items-center justify-center h-full p-8 text-center">
