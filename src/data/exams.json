@@ -3,66 +3,26 @@
   "endTime": "12:15",
   "exams": [
     {
-      "date": "2026-04-23",
-      "label": "April 23, 2026",
+      "date": "2026-04-27",
+      "label": "April 27, 2026",
       "rooms": [
-        {
-          "roomNumber": "101",
-          "label": "Hall A · Room 101",
-          "rollNumbers": ["23CS001", "23CS002", "23CS003", "23CS004", "23CS005", "23CS006", "23CS007", "23CS008", "23CS009", "23CS010", "23CS011", "23CS012", "23CS013", "23CS014", "23CS015", "23CS016", "23CS017", "23CS018", "23CS019", "23CS020", "23CS021", "23CS022", "23CS023", "23CS024", "23CS025", "23CS026", "23CS027", "23CS028", "23CS029", "23CS030", "23CS031", "23CS032", "23CS033", "23CS034", "23CS035", "23CS036", "23CS037", "23CS038", "23CS039", "23CS040"]
-        },
-        {
-          "roomNumber": "102",
-          "label": "Hall A · Room 102",
-          "rollNumbers": ["23CS041", "23CS042", "23CS043", "23CS044", "23CS045", "23CS046", "23CS047", "23CS048", "23CS049", "23CS050", "23CS051", "23CS052", "23CS053", "23CS054", "23CS055", "23CS056", "23CS057", "23CS058", "23CS059", "23CS060", "23CS061", "23CS062", "23CS063", "23CS064", "23CS065", "23CS066", "23CS067", "23CS068", "23CS069", "23CS070", "23CS071", "23CS072", "23CS073", "23CS074", "23CS075", "23CS076", "23CS077", "23CS078", "23CS079", "23CS080"]
-        },
-        {
-          "roomNumber": "103",
-          "label": "Hall B · Room 103",
-          "rollNumbers": ["23CS021", "23CS022", "23CS023", "23CS024", "23CS025", "23CS026", "23CS027", "23CS028", "23CS029", "23CS030"]
-        },
-        {
-          "roomNumber": "104",
-          "label": "Hall B · Room 104",
-          "rollNumbers": ["23EC001", "23EC002", "23EC003", "23EC004", "23EC005", "23EC006", "23EC007", "23EC008", "23EC009", "23EC010"]
-        }
-      ]
-    },
-    {
-      "date": "2026-04-24",
-      "label": "April 24, 2026",
-      "rooms": [
-        {
-          "roomNumber": "201",
-          "label": "Block C · Room 201",
-          "rollNumbers": ["23ME001", "23ME002", "23ME003", "23ME004", "23ME005", "23ME006", "23ME007", "23ME008", "23ME009", "23ME010"]
-        },
-        {
-          "roomNumber": "202",
-          "label": "Block C · Room 202",
-          "rollNumbers": ["23ME011", "23ME012", "23ME013", "23ME014", "23ME015", "23ME016", "23ME017", "23ME018", "23ME019", "23ME020"]
-        },
-        {
-          "roomNumber": "203",
-          "label": "Block D · Room 203",
-          "rollNumbers": ["23CE001", "23CE002", "23CE003", "23CE004", "23CE005", "23CE006", "23CE007", "23CE008", "23CE009", "23CE010"]
-        }
-      ]
-    },
-    {
-      "date": "2026-04-25",
-      "label": "April 25, 2026",
-      "rooms": [
-        {
-          "roomNumber": "301",
-          "label": "Main Block · Room 301",
-          "rollNumbers": ["23IT001", "23IT002", "23IT003", "23IT004", "23IT005", "23IT006", "23IT007", "23IT008", "23IT009", "23IT010"]
-        },
-        {
-          "roomNumber": "302",
-          "label": "Main Block · Room 302",
-          "rollNumbers": ["23IT011", "23IT012", "23IT013", "23IT014", "23IT015", "23IT016", "23IT017", "23IT018", "23IT019", "23IT020"]
-        }
+        { "roomNumber": "V002", "label": "Block V · Room V002", "rollNumbers": [] },
+        { "roomNumber": "V003", "label": "Block V · Room V003", "rollNumbers": [] },
+        { "roomNumber": "V004", "label": "Block V · Room V004", "rollNumbers": [] },
+        { "roomNumber": "V009", "label": "Block V · Room V009", "rollNumbers": [] },
+        { "roomNumber": "V012", "label": "Block V · Room V012", "rollNumbers": [] },
+        { "roomNumber": "V013", "label": "Block V · Room V013", "rollNumbers": [] },
+        { "roomNumber": "V202", "label": "Block V · Room V202", "rollNumbers": [] },
+        { "roomNumber": "V203", "label": "Block V · Room V203", "rollNumbers": [] },
+        { "roomNumber": "V207", "label": "Block V · Room V207", "rollNumbers": [] },
+        { "roomNumber": "V208", "label": "Block V · Room V208", "rollNumbers": [] },
+        { "roomNumber": "V209", "label": "Block V · Room V209", "rollNumbers": [] },
+        { "roomNumber": "W001", "label": "Block W · Room W001", "rollNumbers": [] },
+        { "roomNumber": "W004", "label": "Block W · Room W004", "rollNumbers": [] },
+        { "roomNumber": "W005", "label": "Block W · Room W005", "rollNumbers": [] },
+        { "roomNumber": "W006", "label": "Block W · Room W006", "rollNumbers": [] },
+        { "roomNumber": "W007", "label": "Block W · Room W007", "rollNumbers": [] },
+        { "roomNumber": "W008", "label": "Block W · Room W008", "rollNumbers": [] }
       ]
     }
   ]

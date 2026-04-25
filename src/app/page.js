@@ -31,18 +31,6 @@ const MONTHS = ['January','February','March','April','May','June','July','August
 const DAYS   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const DAYS_S = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
-const INSTRUCTIONS = [
-  'Keep your hall ticket on the desk at all times.',
-  'Electronic devices are strictly prohibited inside the exam hall.',
-  'No communication between students is permitted during the exam.',
-  'Answer all questions in the provided answer booklet only.',
-  'Use only blue or black ballpoint pen. No pencil except for diagrams.',
-  'Late entry will not be allowed after 15 minutes from start.',
-  'Do not leave the hall without submitting your answer script.',
-  'Rough work must be done only in the answer booklet and crossed out.',
-  'Ensure your roll number is written on every answer sheet.',
-  'The invigilator\'s decision is final in all matters.',
-];
 
 // ─── Server-Time Hook ────────────────────────────────────────────────────────
 // Fetches one timestamp from the server, calculates the offset vs local clock,
@@ -74,116 +62,72 @@ function useServerTime() {
   return { ready, getServerNow };
 }
 
-// ─── Timer (slim bar) ────────────────────────────────────────────────────────
 
-function Timer({ startTime, endTime }) {
+// ─── Digital Clock ──────────────────────────────────────────────────────────
+
+function DigitalClock() {
   const { ready, getServerNow } = useServerTime();
-  const [status, setStatus]       = useState('loading');
-  const [secondsLeft, setSecsLeft] = useState(0);
-  const [progress, setProgress]   = useState(0);
-
-  const tick = useCallback(() => {
-    if (!ready) return;
-    const now   = getServerNow();
-    const start = parseTimeToday(startTime, now);
-    const end   = parseTimeToday(endTime, now);
-    const total = (end - start) / 1000;
-
-    if (now < start) {
-      setStatus('upcoming');
-      setSecsLeft(Math.floor((start - now) / 1000));
-      setProgress(0);
-    } else if (now < end) {
-      const elapsed = Math.floor((now - start) / 1000);
-      setStatus('active');
-      setSecsLeft(Math.floor((end - now) / 1000));
-      setProgress(Math.min(elapsed / total, 1));
-    } else {
-      setStatus('ended');
-      setSecsLeft(0);
-      setProgress(1);
-    }
-  }, [ready, getServerNow, startTime, endTime]);
+  const [time, setTime] = useState(null);
 
   useEffect(() => {
-    tick();
-    const id = setInterval(tick, 1000);
+    const update = () => {
+      if (!ready) return;
+      const now = new Date(getServerNow());
+      
+      // Explicitly format for IST (Asia/Kolkata)
+      const options = {
+        timeZone: 'Asia/Kolkata',
+        hour: 'numeric',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+      };
+      
+      const timeStr = now.toLocaleTimeString('en-IN', options);
+      const dateStr = now.toLocaleDateString('en-IN', {
+        timeZone: 'Asia/Kolkata',
+        weekday: 'long',
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric'
+      });
+      
+      setTime({ time: timeStr, date: dateStr });
+    };
+
+    update();
+    const id = setInterval(update, 1000);
     return () => clearInterval(id);
-  }, [tick]);
+  }, [ready, getServerNow]);
 
-  const statusCfg = {
-    upcoming: { label: 'Upcoming',    color: '#6366f1', bg: '#eef2ff' },
-    active:   { label: 'In Progress', color: '#000000', bg: '#f0f0f0' },
-    ended:    { label: 'Exam Ended',  color: '#9ca3af', bg: '#f9fafb' },
-    loading:  { label: 'Loading…',   color: '#d1d5db', bg: '#f9fafb' },
-  }[status];
+  if (!time) return (
+    <div className="flex flex-col items-center justify-center h-full text-gray-300">
+      <div className="w-12 h-12 border-4 border-gray-100 border-t-black rounded-full animate-spin mb-4" />
+      <p className="text-sm font-medium animate-pulse">Syncing with server...</p>
+    </div>
+  );
 
   return (
-    <div className="w-full">
-      {/* Status row */}
-      <div className="flex items-center justify-between mb-2">
-        <div className="flex items-center gap-2">
-          <span
-            className="w-2 h-2 rounded-full animate-pulse"
-            style={{ background: statusCfg.color }}
-          />
-          <span className="text-xs font-semibold" style={{ color: statusCfg.color }}>
-            {statusCfg.label}
-          </span>
+    <div className="flex flex-col items-center justify-center h-full p-8 text-center">
+      <div className="relative">
+        {/* Glow effect */}
+        <div className="absolute inset-0 blur-3xl bg-black/5 rounded-full scale-150" />
+        
+        <div className="relative">
+          <p className="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">Current Time (IST)</p>
+          <div className="text-[7rem] font-bold text-black leading-none tracking-tighter tabular-nums mb-2">
+            {time.time.split(' ')[0]}
+            <span className="text-4xl ml-2 text-gray-400 uppercase">{time.time.split(' ')[1]}</span>
+          </div>
+          <div className="h-px w-24 bg-gray-100 mx-auto mb-6" />
+          <p className="text-xl font-medium text-gray-500">{time.date}</p>
         </div>
-        <span className="text-xs font-mono text-gray-500">
-          {status === 'ended' ? '00:00:00' : formatDuration(secondsLeft)}
-        </span>
-      </div>
-
-      {/* Thin progress bar */}
-      <div className="h-3 rounded-full overflow-hidden" style={{ background: statusCfg.bg }}>
-        <div
-          className="h-full rounded-full transition-all duration-1000"
-          style={{ width: `${progress * 100}%`, background: statusCfg.color }}
-        />
-      </div>
-
-      {/* Start / End labels */}
-      <div className="flex justify-between mt-1.5 text-xs text-gray-400">
-        <span>{formatDisplay(startTime)}</span>
-        <span className="font-medium text-gray-500">
-          {Math.round(progress * 100)}% elapsed
-        </span>
-        <span>{formatDisplay(endTime)}</span>
       </div>
     </div>
   );
 }
 
-// ─── Roll Grid (no scroll – fits within panel) ───────────────────────────────
 
-function RollGrid({ rollNumbers }) {
-  const cols = 5;
-  const rows = Math.min(12, Math.ceil(rollNumbers.length / cols));
-
-  return (
-    <div
-      style={{
-        display: 'grid',
-        gridTemplateColumns: `repeat(${cols}, 1fr)`,
-        gridTemplateRows: `repeat(${rows}, 1fr)`,
-        gap: '0.4rem',
-        height: '100%',
-      }}
-    >
-      {rollNumbers.slice(0, cols * rows).map((roll, i) => (
-        <div
-          key={roll}
-          className="flex flex-col items-center justify-center rounded-lg border border-gray-100 bg-white hover:border-black hover:bg-gray-50 transition-all duration-150 cursor-default"
-        >
-          <span className="text-xs text-gray-400 font-medium leading-none mb-1">#{i + 1}</span>
-          <span className="text-lg font-bold text-black font-mono tracking-tight">{roll}</span>
-        </div>
-      ))}
-    </div>
-  );
-}
 
 // ─── Date Selector ───────────────────────────────────────────────────────────
 
@@ -245,7 +189,7 @@ function RoomSelector({ exam, onSelect, onBack }) {
           {DAYS[d.getDay()]}, {MONTHS[d.getMonth()]} {d.getDate()}, {d.getFullYear()}
         </p>
         <h2 className="text-4xl font-bold text-black mb-3">Select Room Number</h2>
-        <p className="text-gray-500">Choose a room to view its seating layout and timer</p>
+        <p className="text-gray-500">Choose a room to view its seating layout</p>
       </div>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 max-w-3xl w-full">
@@ -258,7 +202,6 @@ function RoomSelector({ exam, onSelect, onBack }) {
           >
             <p className="text-xs text-gray-400 uppercase tracking-widest mb-2">Room</p>
             <p className="text-4xl font-bold text-black mb-3">{room.roomNumber}</p>
-            <p className="text-xs text-gray-400">{room.rollNumbers.length} students</p>
           </button>
         ))}
       </div>
@@ -305,55 +248,44 @@ function Dashboard({ exam, room, onBack }) {
       {/* Split panes — no overflow so nothing scrolls */}
       <div className="flex flex-1 overflow-hidden">
 
-        {/* LEFT — Roll Numbers: fills entire height, grid scales to fit */}
-        <section className="w-1/2 flex flex-col border-r border-gray-200 overflow-hidden">
+        {/* LEFT — Seating Plan Image */}
+        <section className="w-1/2 flex flex-col border-r border-gray-200 overflow-hidden bg-gray-50/50">
           <div className="px-6 pt-5 pb-3 shrink-0">
-            <p className="text-xs text-gray-400 uppercase tracking-widest mb-0.5">Seating Arrangement</p>
-            <h2 className="text-xl font-bold text-black mb-0.5">Roll Numbers</h2>
-            <p className="text-gray-400 text-xs">{room.label} &nbsp;·&nbsp; {room.rollNumbers.length} students</p>
+            <p className="text-gray-400 text-xs">{room.label} &nbsp;·&nbsp; Room {room.roomNumber}</p>
           </div>
-          {/* Roll grid stretches to fill all remaining space */}
-          <div className="flex-1 px-6 pb-5 min-h-0">
-            <RollGrid rollNumbers={room.rollNumbers} />
+          
+          <div className="flex-1 p-6 min-h-0">
+            <div className="w-full h-full rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden flex items-center justify-center relative group">
+              {/* Constructing image path: /[day][month]/[roomNumber].jpg */}
+              <img 
+                src={`/${d.getDate()}${MONTHS[d.getMonth()].toLowerCase()}/${room.roomNumber}.jpg`}
+                alt={`Seating plan for Room ${room.roomNumber}`}
+                className="max-w-full max-h-full object-contain p-2 transition-transform duration-500 group-hover:scale-[1.02]"
+                onError={(e) => {
+                  // Fallback if image is missing
+                  e.target.style.display = 'none';
+                  e.target.nextSibling.style.display = 'flex';
+                }}
+              />
+              
+              {/* Fallback UI when image fails to load */}
+              <div className="hidden absolute inset-0 flex-col items-center justify-center text-gray-400 bg-gray-50 p-8 text-center">
+                <svg className="w-12 h-12 mb-3 opacity-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                <p className="text-sm font-medium">Plan image not found</p>
+                <p className="text-xs mt-1">Expected path: /{d.getDate()}{MONTHS[d.getMonth()].toLowerCase()}/{room.roomNumber}.jpg</p>
+              </div>
+
+              {/* Subtle overlay border */}
+              <div className="absolute inset-0 pointer-events-none border border-black/5 rounded-2xl" />
+            </div>
           </div>
         </section>
 
-        {/* RIGHT — Timer bar + Instructions */}
-        <section className="w-1/2 flex flex-col overflow-hidden">
-
-          {/* Timer strip at top */}
-          <div className="px-8 pt-6 pb-5 border-b border-gray-100 shrink-0">
-            <div className="flex items-center justify-between mb-3">
-              <div>
-                <p className="text-xs text-gray-400 uppercase tracking-widest mb-0.5">Examination</p>
-                <h2 className="text-xl font-bold text-black">Timing</h2>
-              </div>
-              <p className="text-xs text-gray-400">Server time sync</p>
-            </div>
-            <Timer startTime={examData.startTime} endTime={examData.endTime} />
-          </div>
-
-          {/* Instructions — main content area */}
-          <div className="flex-1 px-8 pt-5 pb-6 overflow-hidden flex flex-col">
-            <div className="flex items-center gap-2 mb-4">
-              <svg className="w-4 h-4 text-gray-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-              </svg>
-              <h3 className="text-sm font-bold text-black uppercase tracking-widest">Exam Instructions</h3>
-            </div>
-
-            <ol className="flex-1 flex flex-col justify-between gap-0">
-              {INSTRUCTIONS.map((inst, i) => (
-                <li key={i} className="flex items-start gap-3 group">
-                  <span className="shrink-0 w-5 h-5 rounded-full bg-gray-100 group-hover:bg-black text-gray-500 group-hover:text-white text-xs font-bold flex items-center justify-center transition-all duration-150 mt-0.5">
-                    {i + 1}
-                  </span>
-                  <p className="text-sm text-gray-600 leading-snug">{inst}</p>
-                </li>
-              ))}
-            </ol>
-          </div>
+        {/* RIGHT — Digital Clock */}
+        <section className="w-1/2 flex flex-col overflow-hidden bg-white">
+          <DigitalClock />
         </section>
 
       </div>
