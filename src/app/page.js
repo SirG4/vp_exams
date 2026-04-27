@@ -148,8 +148,8 @@ function DateSelector({ onSelect }) {
           const d = new Date(exam.date + 'T00:00:00');
           return (
             <button
-              key={exam.date}
-              id={`date-${exam.date}`}
+              key={`${exam.date}-${exam.session}`}
+              id={`date-${exam.date}-${exam.session}`}
               onClick={() => onSelect(exam)}
               className="group relative p-7 rounded-2xl border border-gray-200 bg-white hover:border-black hover:shadow-lg transition-all duration-200 text-left overflow-hidden"
             >
@@ -158,7 +158,7 @@ function DateSelector({ onSelect }) {
                 <p className="text-5xl font-bold text-black mb-1 leading-none">{d.getDate()}</p>
                 <p className="text-gray-500 text-sm mb-5">{MONTHS[d.getMonth()]} {d.getFullYear()}</p>
                 <p className="text-xs text-gray-400 border-t border-gray-100 pt-3 group-hover:border-gray-300 transition-colors">
-                  {exam.rooms.length} room{exam.rooms.length !== 1 ? 's' : ''} assigned
+                  {exam.rooms.length} room{exam.rooms.length !== 1 ? 's' : ''} {exam.session ? `· ${exam.session}` : ''}
                 </p>
               </div>
               <div className="absolute bottom-5 right-5 opacity-0 group-hover:opacity-100 transition-all duration-200 translate-x-2 group-hover:translate-x-0">
@@ -258,7 +258,7 @@ function Dashboard({ exam, room, onBack }) {
             <div className="w-full h-full rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden flex items-center justify-center relative group">
               {/* Constructing image path: /[day][month]/[roomNumber].jpg */}
               <img 
-                src={`/${d.getDate()}${MONTHS[d.getMonth()].toLowerCase()}/${room.roomNumber}.jpg`}
+                src={`/${d.getDate()}${MONTHS[d.getMonth()].toLowerCase()}${exam.session ? '_' + exam.session : ''}/${room.roomNumber}.jpg`}
                 alt={`Seating plan for Room ${room.roomNumber}`}
                 className="max-w-full max-h-full object-contain p-2 transition-transform duration-500 group-hover:scale-[1.02]"
                 onError={(e) => {
@@ -274,7 +274,7 @@ function Dashboard({ exam, room, onBack }) {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
                 <p className="text-sm font-medium">Plan image not found</p>
-                <p className="text-xs mt-1">Expected path: /{d.getDate()}{MONTHS[d.getMonth()].toLowerCase()}/{room.roomNumber}.jpg</p>
+                <p className="text-xs mt-1">Expected path: /{d.getDate()}{MONTHS[d.getMonth()].toLowerCase()}{exam.session ? '_' + exam.session : ''}/{room.roomNumber}.jpg</p>
               </div>
 
               {/* Subtle overlay border */}
