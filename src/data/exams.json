@@ -48,7 +48,8 @@
         { "roomNumber": "W005", "label": "Block W · Room W005", "rollNumbers": [] },
         { "roomNumber": "W006", "label": "Block W · Room W006", "rollNumbers": [] },
         { "roomNumber": "W007", "label": "Block W · Room W007", "rollNumbers": [] },
-        { "roomNumber": "W008", "label": "Block W · Room W008", "rollNumbers": [] }
+        { "roomNumber": "W008", "label": "Block W · Room W008", "rollNumbers": [] },
+        { "roomNumber": "EC0568", "label": "Seminar Hall", "rollNumbers": []}
       ]
     },
     {
