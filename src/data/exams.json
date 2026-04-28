@@ -59,6 +59,60 @@
       "rooms": [
         { "roomNumber": "V203", "label": "Block V · Room V203", "rollNumbers": [] }
       ]
+    },
+    {
+      "date": "2026-04-29",
+      "label": "April 29 (Morning)",
+      "session": "morning",
+      "rooms": [
+        { "roomNumber": "V009", "label": "Block V · Room V009", "rollNumbers": [] },
+        { "roomNumber": "V012", "label": "Block V · Room V012", "rollNumbers": [] },
+        { "roomNumber": "V013", "label": "Block V · Room V013", "rollNumbers": [] },
+        { "roomNumber": "V014", "label": "Block V · Room V014", "rollNumbers": [] },
+        { "roomNumber": "V201", "label": "Block V · Room V201", "rollNumbers": [] },
+        { "roomNumber": "V202", "label": "Block V · Room V202", "rollNumbers": [] },
+        { "roomNumber": "V203", "label": "Block V · Room V203", "rollNumbers": [] },
+        { "roomNumber": "V207", "label": "Block V · Room V207", "rollNumbers": [] },
+        { "roomNumber": "V208", "label": "Block V · Room V208", "rollNumbers": [] },
+        { "roomNumber": "V209", "label": "Block V · Room V209", "rollNumbers": [] },
+        { "roomNumber": "W001", "label": "Block W · Room W001", "rollNumbers": [] },
+        { "roomNumber": "W002", "label": "Block W · Room W002", "rollNumbers": [] },
+        { "roomNumber": "W003", "label": "Block W · Room W003", "rollNumbers": [] },
+        { "roomNumber": "W004", "label": "Block W · Room W004", "rollNumbers": [] },
+        { "roomNumber": "W005", "label": "Block W · Room W005", "rollNumbers": [] },
+        { "roomNumber": "W006", "label": "Block W · Room W006", "rollNumbers": [] },
+        { "roomNumber": "W007", "label": "Block W · Room W007", "rollNumbers": [] },
+        { "roomNumber": "W008", "label": "Block W · Room W008", "rollNumbers": [] }
+      ]
+    },
+    {
+      "date": "2026-04-29",
+      "label": "April 29 (Afternoon)",
+      "session": "afternoon",
+      "rooms": [
+        { "roomNumber": "V202", "label": "Block V · Room V202", "rollNumbers": [] },
+        { "roomNumber": "V208", "label": "Block V · Room V208", "rollNumbers": [] }
+      ]
+    },
+    {
+      "date": "2026-04-30",
+      "label": "April 30 (Morning)",
+      "session": "morning",
+      "rooms": [
+        { "roomNumber": "V002", "label": "Block V · Room V002", "rollNumbers": [] },
+        { "roomNumber": "V003", "label": "Block V · Room V003", "rollNumbers": [] },
+        { "roomNumber": "V004", "label": "Block V · Room V004", "rollNumbers": [] },
+        { "roomNumber": "V009", "label": "Block V · Room V009", "rollNumbers": [] },
+        { "roomNumber": "V012", "label": "Block V · Room V012", "rollNumbers": [] },
+        { "roomNumber": "V013", "label": "Block V · Room V013", "rollNumbers": [] },
+        { "roomNumber": "V014", "label": "Block V · Room V014", "rollNumbers": [] },
+        { "roomNumber": "V201", "label": "Block V · Room V201", "rollNumbers": [] },
+        { "roomNumber": "V202", "label": "Block V · Room V202", "rollNumbers": [] },
+        { "roomNumber": "V203", "label": "Block V · Room V203", "rollNumbers": [] },
+        { "roomNumber": "V207", "label": "Block V · Room V207", "rollNumbers": [] },
+        { "roomNumber": "V208", "label": "Block V · Room V208", "rollNumbers": [] },
+        { "roomNumber": "V209", "label": "Block V · Room V209", "rollNumbers": [] }
+      ]
     }
   ]
 }
