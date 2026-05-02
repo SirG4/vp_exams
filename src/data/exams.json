@@ -131,6 +131,28 @@
         { "roomNumber": "V203", "label": "Block V · Room V203", "rollNumbers": [] },
         { "roomNumber": "EC0568", "label": "Seminar Hall", "rollNumbers": [] }
       ]
+    },
+    {
+      "date": "2026-05-04",
+      "label": "May 04 (Morning)",
+      "session": "morning",
+      "rooms": [
+        { "roomNumber": "V201", "label": "Block V · Room V201", "rollNumbers": [] },
+        { "roomNumber": "V202", "label": "Block V · Room V202", "rollNumbers": [] },
+        { "roomNumber": "V207", "label": "Block V · Room V207", "rollNumbers": [] },
+        { "roomNumber": "V208", "label": "Block V · Room V208", "rollNumbers": [] },
+        { "roomNumber": "EC0568", "label": "Seminar Hall", "rollNumbers": [] }
+      ]
+    },
+    {
+      "date": "2026-05-04",
+      "label": "May 04 (Afternoon)",
+      "session": "afternoon",
+      "rooms": [
+        { "roomNumber": "V202", "label": "Block V · Room V202", "rollNumbers": [] },
+        { "roomNumber": "V208", "label": "Block V · Room V208", "rollNumbers": [] },
+        { "roomNumber": "EC0568", "label": "Seminar Hall", "rollNumbers": [] }
+      ]
     }
   ]
 }
