@@ -126,7 +126,7 @@ function CircularTimer({ startTimeStr, endTimeStr }) {
   }, [ready, getServerNow, startTimeStr, endTimeStr]);
 
   // SVG parameters
-  const size = 340;
+  const size = 250;
   const strokeWidth = 14;
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
@@ -140,7 +140,7 @@ function CircularTimer({ startTimeStr, endTimeStr }) {
   );
 
   return (
-    <div className="flex flex-col items-center justify-center h-full p-8 text-center bg-white relative overflow-hidden">
+    <div className="flex flex-col items-center justify-center h-full p-6 text-center bg-white relative overflow-hidden">
       {/* Background decoration */}
       <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-gray-50 rounded-full blur-3xl opacity-50" />
       <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-96 h-96 bg-gray-50 rounded-full blur-3xl opacity-50" />
@@ -189,17 +189,10 @@ function CircularTimer({ startTimeStr, endTimeStr }) {
           <p className="text-[11px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">
             {status === 'upcoming' ? 'Exam Starts In' : status === 'ended' ? 'Exam Finished' : 'Time Remaining'}
           </p>
-          <div className="text-7xl font-bold text-black tabular-nums tracking-tighter leading-none">
+          <div className="text-5xl font-bold text-black tabular-nums tracking-tighter leading-none">
             {formatDuration(Math.floor(timeLeft / 1000))}
           </div>
-          {status === 'ongoing' && (
-            <div className="mt-4 flex flex-col items-center">
-              <div className="h-1 w-12 bg-gray-100 rounded-full mb-3" />
-              <p className="text-sm font-bold text-gray-900">
-                {Math.floor(progress * 100)}% <span className="text-gray-400 font-medium">Progress</span>
-              </p>
-            </div>
-          )}
+
           {status === 'ended' && (
             <div className="mt-4 px-4 py-1.5 rounded-full bg-gray-100 text-gray-600 text-xs font-bold uppercase tracking-wider">
               Session Closed
@@ -208,24 +201,13 @@ function CircularTimer({ startTimeStr, endTimeStr }) {
         </div>
       </div>
 
-      {/* Time Details Grid */}
-      <div className="mt-16 grid grid-cols-2 gap-16 w-full max-w-sm relative z-10">
-        <div className="text-left relative">
-          <div className="absolute -left-4 top-0 bottom-0 w-1 bg-gray-100 rounded-full" />
-          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Start Time</p>
-          <p className="text-2xl font-bold text-black tabular-nums">{formatDisplay(startTimeStr)}</p>
-        </div>
-        <div className="text-right relative">
-          <div className="absolute -right-4 top-0 bottom-0 w-1 bg-gray-100 rounded-full" />
-          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">End Time</p>
-          <p className="text-2xl font-bold text-black tabular-nums">{formatDisplay(endTimeStr)}</p>
-        </div>
-      </div>
-
-      {/* System Clock Footer */}
-      <div className="mt-16 pt-8 border-t border-gray-100 w-full max-w-[200px] relative z-10 group">
-        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 group-hover:text-black transition-colors">Current Time (IST)</p>
-        <DigitalTimeOnly />
+      {/* Instructions Image */}
+      <div className="mt-8 w-full max-w-2xl relative z-10">
+        <img 
+          src="/instructions.png" 
+          alt="Exam Instructions" 
+          className="w-full h-auto max-h-[400px] object-contain rounded-2xl border border-gray-100 shadow-sm"
+        />
       </div>
     </div>
   );
@@ -337,14 +319,27 @@ function Dashboard({ exam, room, onBack }) {
   return (
     <div className="h-screen flex flex-col overflow-hidden bg-white">
       {/* Top bar */}
-      <header className="flex items-center justify-between px-8 py-4 border-b border-gray-200 bg-white shrink-0">
+      <header className="flex items-center justify-between px-8 py-5 border-b border-gray-100 bg-white shrink-0">
         <BackButton onClick={onBack} label="Change room" />
-        <div className="text-center">
-          <p className="text-black text-sm font-semibold">
+        
+        <div className="flex flex-col items-center">
+          <p className="text-black text-sm font-bold tracking-tight">
             {DAYS[d.getDay()]}, {MONTHS[d.getMonth()]} {d.getDate()}, {d.getFullYear()}
           </p>
+          <div className="flex items-center gap-4 mt-1.5">
+            <div className="flex items-center gap-1.5 text-[10px] text-gray-400 font-bold uppercase tracking-[0.15em]">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]" />
+              Starts: <span className="text-gray-600">{formatDisplay(examData.startTime)}</span>
+            </div>
+            <div className="w-px h-2.5 bg-gray-200" />
+            <div className="flex items-center gap-1.5 text-[10px] text-gray-400 font-bold uppercase tracking-[0.15em]">
+              <span className="w-1.5 h-1.5 rounded-full bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.4)]" />
+              Ends: <span className="text-gray-600">{formatDisplay(examData.endTime)}</span>
+            </div>
+          </div>
         </div>
-        <div className="px-3 py-1 rounded-lg bg-black text-white text-sm font-bold">
+
+        <div className="px-5 py-2 rounded-full bg-black text-white text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-black/10">
           Room {room.roomNumber}
         </div>
       </header>
