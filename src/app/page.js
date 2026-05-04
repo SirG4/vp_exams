@@ -27,9 +27,9 @@ function formatDisplay(timeStr) {
   return `${hour}:${String(m).padStart(2, '0')} ${ampm}`;
 }
 
-const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-const DAYS   = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-const DAYS_S = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const DAYS_S = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 
 // ─── Server-Time Hook ────────────────────────────────────────────────────────
@@ -65,16 +65,14 @@ function useServerTime() {
 
 // ─── Digital Clock ──────────────────────────────────────────────────────────
 
-function DigitalClock() {
+function DigitalTimeOnly() {
   const { ready, getServerNow } = useServerTime();
-  const [time, setTime] = useState(null);
+  const [time, setTime] = useState('');
 
   useEffect(() => {
     const update = () => {
       if (!ready) return;
       const now = new Date(getServerNow());
-      
-      // Explicitly format for IST (Asia/Kolkata)
       const options = {
         timeZone: 'Asia/Kolkata',
         hour: 'numeric',
@@ -82,25 +80,59 @@ function DigitalClock() {
         second: '2-digit',
         hour12: true
       };
-      
-      const timeStr = now.toLocaleTimeString('en-IN', options);
-      const dateStr = now.toLocaleDateString('en-IN', {
-        timeZone: 'Asia/Kolkata',
-        weekday: 'long',
-        day: 'numeric',
-        month: 'long',
-        year: 'numeric'
-      });
-      
-      setTime({ time: timeStr, date: dateStr });
+      setTime(now.toLocaleTimeString('en-IN', options));
     };
-
     update();
     const id = setInterval(update, 1000);
     return () => clearInterval(id);
   }, [ready, getServerNow]);
 
-  if (!time) return (
+  return <p className="text-xl font-medium text-gray-600">{time}</p>;
+}
+
+function CircularTimer({ startTimeStr, endTimeStr }) {
+  const { ready, getServerNow } = useServerTime();
+  const [timeLeft, setTimeLeft] = useState(0);
+  const [progress, setProgress] = useState(0);
+  const [status, setStatus] = useState('upcoming'); // upcoming, ongoing, ended
+
+  useEffect(() => {
+    const update = () => {
+      if (!ready) return;
+      const nowMs = getServerNow();
+      const startMs = parseTimeToday(startTimeStr, nowMs);
+      const endMs = parseTimeToday(endTimeStr, nowMs);
+
+      if (nowMs < startMs) {
+        setStatus('upcoming');
+        setTimeLeft(startMs - nowMs);
+        setProgress(0);
+      } else if (nowMs > endMs) {
+        setStatus('ended');
+        setTimeLeft(0);
+        setProgress(1);
+      } else {
+        setStatus('ongoing');
+        const total = endMs - startMs;
+        const elapsed = nowMs - startMs;
+        setProgress(elapsed / total);
+        setTimeLeft(endMs - nowMs);
+      }
+    };
+
+    update();
+    const id = setInterval(update, 1000);
+    return () => clearInterval(id);
+  }, [ready, getServerNow, startTimeStr, endTimeStr]);
+
+  // SVG parameters
+  const size = 340;
+  const strokeWidth = 14;
+  const radius = (size - strokeWidth) / 2;
+  const circumference = 2 * Math.PI * radius;
+  const offset = circumference - progress * circumference;
+
+  if (!ready) return (
     <div className="flex flex-col items-center justify-center h-full text-gray-300">
       <div className="w-12 h-12 border-4 border-gray-100 border-t-black rounded-full animate-spin mb-4" />
       <p className="text-sm font-medium animate-pulse">Syncing with server...</p>
@@ -108,20 +140,92 @@ function DigitalClock() {
   );
 
   return (
-    <div className="flex flex-col items-center justify-center h-full p-8 text-center">
-      <div className="relative">
-        {/* Glow effect */}
-        <div className="absolute inset-0 blur-3xl bg-black/5 rounded-full scale-150" />
-        
-        <div className="relative">
-          <p className="text-xs font-bold text-gray-400 uppercase tracking-[0.2em] mb-4">Current Time (IST)</p>
-          <div className="text-[7rem] font-bold text-black leading-none tracking-tighter tabular-nums mb-2">
-            {time.time.split(' ')[0]}
-            <span className="text-4xl ml-2 text-gray-400 uppercase">{time.time.split(' ')[1]}</span>
+    <div className="flex flex-col items-center justify-center h-full p-8 text-center bg-white relative overflow-hidden">
+      {/* Background decoration */}
+      <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-gray-50 rounded-full blur-3xl opacity-50" />
+      <div className="absolute bottom-0 left-0 translate-y-1/2 -translate-x-1/2 w-96 h-96 bg-gray-50 rounded-full blur-3xl opacity-50" />
+
+      <div className="relative flex items-center justify-center">
+        {/* Glow Effect */}
+        <div
+          className="absolute inset-0 blur-[60px] rounded-full scale-110 transition-colors duration-1000"
+          style={{ backgroundColor: status === 'ongoing' ? 'rgba(0,0,0,0.03)' : 'rgba(0,0,0,0.02)' }}
+        />
+
+        {/* SVG Circle */}
+        <svg width={size} height={size} className="transform -rotate-90 relative z-10">
+          <defs>
+            <linearGradient id="timerGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#000000" />
+              <stop offset="100%" stopColor="#444444" />
+            </linearGradient>
+          </defs>
+          {/* Background Circle */}
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={radius}
+            stroke="#f3f4f6"
+            strokeWidth={strokeWidth}
+            fill="transparent"
+          />
+          {/* Progress Circle */}
+          <circle
+            cx={size / 2}
+            cy={size / 2}
+            r={radius}
+            stroke="url(#timerGradient)"
+            strokeWidth={strokeWidth}
+            fill="transparent"
+            strokeDasharray={circumference}
+            strokeDashoffset={offset}
+            strokeLinecap="round"
+            style={{ transition: 'stroke-dashoffset 1s linear' }}
+          />
+        </svg>
+
+        {/* Center Content */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center z-20">
+          <p className="text-[11px] font-bold text-gray-400 uppercase tracking-[0.2em] mb-2">
+            {status === 'upcoming' ? 'Exam Starts In' : status === 'ended' ? 'Exam Finished' : 'Time Remaining'}
+          </p>
+          <div className="text-7xl font-bold text-black tabular-nums tracking-tighter leading-none">
+            {formatDuration(Math.floor(timeLeft / 1000))}
           </div>
-          <div className="h-px w-24 bg-gray-100 mx-auto mb-6" />
-          <p className="text-xl font-medium text-gray-500">{time.date}</p>
+          {status === 'ongoing' && (
+            <div className="mt-4 flex flex-col items-center">
+              <div className="h-1 w-12 bg-gray-100 rounded-full mb-3" />
+              <p className="text-sm font-bold text-gray-900">
+                {Math.floor(progress * 100)}% <span className="text-gray-400 font-medium">Progress</span>
+              </p>
+            </div>
+          )}
+          {status === 'ended' && (
+            <div className="mt-4 px-4 py-1.5 rounded-full bg-gray-100 text-gray-600 text-xs font-bold uppercase tracking-wider">
+              Session Closed
+            </div>
+          )}
         </div>
+      </div>
+
+      {/* Time Details Grid */}
+      <div className="mt-16 grid grid-cols-2 gap-16 w-full max-w-sm relative z-10">
+        <div className="text-left relative">
+          <div className="absolute -left-4 top-0 bottom-0 w-1 bg-gray-100 rounded-full" />
+          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">Start Time</p>
+          <p className="text-2xl font-bold text-black tabular-nums">{formatDisplay(startTimeStr)}</p>
+        </div>
+        <div className="text-right relative">
+          <div className="absolute -right-4 top-0 bottom-0 w-1 bg-gray-100 rounded-full" />
+          <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-1.5">End Time</p>
+          <p className="text-2xl font-bold text-black tabular-nums">{formatDisplay(endTimeStr)}</p>
+        </div>
+      </div>
+
+      {/* System Clock Footer */}
+      <div className="mt-16 pt-8 border-t border-gray-100 w-full max-w-[200px] relative z-10 group">
+        <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 group-hover:text-black transition-colors">Current Time (IST)</p>
+        <DigitalTimeOnly />
       </div>
     </div>
   );
@@ -250,15 +354,11 @@ function Dashboard({ exam, room, onBack }) {
 
         {/* LEFT — Seating Plan Image */}
         <section className="w-1/2 flex flex-col border-r border-gray-200 overflow-hidden bg-gray-50/50">
-          <div className="px-6 pt-5 pb-3 shrink-0">
-            <p className="text-gray-400 text-xs">{room.label} &nbsp;·&nbsp; Room {room.roomNumber}</p>
-          </div>
-          
           <div className="flex-1 p-6 min-h-0">
             <div className="w-full h-full rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden flex items-center justify-center relative group">
               {/* Constructing image path: /[day][month]/[roomNumber].jpg */}
-              <img 
-                src={`/${d.getDate()}${MONTHS[d.getMonth()].toLowerCase()}${exam.session ? '_' + exam.session : ''}/${room.roomNumber}.jpg`}
+              <img
+                src={`/${d.getDate()}${MONTHS[d.getMonth()].toLowerCase()}${exam.session ? '_' + exam.session : ''}/${room.roomNumber}.png`}
                 alt={`Seating plan for Room ${room.roomNumber}`}
                 className="max-w-full max-h-full object-contain p-2 transition-transform duration-500 group-hover:scale-[1.02]"
                 onError={(e) => {
@@ -267,14 +367,14 @@ function Dashboard({ exam, room, onBack }) {
                   e.target.nextSibling.style.display = 'flex';
                 }}
               />
-              
+
               {/* Fallback UI when image fails to load */}
               <div className="hidden absolute inset-0 flex-col items-center justify-center text-gray-400 bg-gray-50 p-8 text-center">
                 <svg className="w-12 h-12 mb-3 opacity-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
                 <p className="text-sm font-medium">Plan image not found</p>
-                <p className="text-xs mt-1">Expected path: /{d.getDate()}{MONTHS[d.getMonth()].toLowerCase()}{exam.session ? '_' + exam.session : ''}/{room.roomNumber}.jpg</p>
+                <p className="text-xs mt-1">Expected path: /{d.getDate()}{MONTHS[d.getMonth()].toLowerCase()}{exam.session ? '_' + exam.session : ''}/{room.roomNumber}.png</p>
               </div>
 
               {/* Subtle overlay border */}
@@ -283,9 +383,12 @@ function Dashboard({ exam, room, onBack }) {
           </div>
         </section>
 
-        {/* RIGHT — Digital Clock */}
+        {/* RIGHT — Circular Timer */}
         <section className="w-1/2 flex flex-col overflow-hidden bg-white">
-          <DigitalClock />
+          <CircularTimer
+            startTimeStr={examData.startTime}
+            endTimeStr={examData.endTime}
+          />
         </section>
 
       </div>
@@ -296,7 +399,7 @@ function Dashboard({ exam, room, onBack }) {
 // ─── Main Page ───────────────────────────────────────────────────────────────
 
 export default function Page() {
-  const [step, setStep]                 = useState('date');
+  const [step, setStep] = useState('date');
   const [selectedExam, setSelectedExam] = useState(null);
   const [selectedRoom, setSelectedRoom] = useState(null);
 

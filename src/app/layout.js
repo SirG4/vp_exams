@@ -8,7 +8,7 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "VP Exam Portal",
+  title: "VIT Exam Portal",
   description: "Exam seating arrangement and live timing dashboard",
 };
 
