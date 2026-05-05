@@ -31,6 +31,27 @@
       ]
     },
     {
+      "date": "2026-05-05",
+      "label": "May 05 (Afternoon)",
+      "session": "afternoon",
+      "rooms": [
+        { "roomNumber": "D-301", "label": "Block D · Room D-301", "rollNumbers": [] },
+        { "roomNumber": "D-302", "label": "Block D · Room D-302", "rollNumbers": [] },
+        { "roomNumber": "D-304", "label": "Block D · Room D-304", "rollNumbers": [] },
+        { "roomNumber": "M-202", "label": "Block M · Room M-202", "rollNumbers": [] },
+        { "roomNumber": "M-203", "label": "Block M · Room M-203", "rollNumbers": [] },
+        { "roomNumber": "M-206", "label": "Block M · Room M-206", "rollNumbers": [] },
+        { "roomNumber": "M-207", "label": "Block M · Room M-207", "rollNumbers": [] },
+        { "roomNumber": "M-208", "label": "Block M · Room M-208", "rollNumbers": [] },
+        { "roomNumber": "M-301", "label": "Block M · Room M-301", "rollNumbers": [] },
+        { "roomNumber": "M-302", "label": "Block M · Room M-302", "rollNumbers": [] },
+        { "roomNumber": "M-307", "label": "Block M · Room M-307", "rollNumbers": [] },
+        { "roomNumber": "M-308", "label": "Block M · Room M-308", "rollNumbers": [] },
+        { "roomNumber": "M-309", "label": "Block M · Room M-309", "rollNumbers": [] },
+        { "roomNumber": "M-315", "label": "Block M · Room M-315", "rollNumbers": [] }
+      ]
+    },
+    {
       "date": "2026-05-06",
       "label": "May 06 (Afternoon)",
       "session": "afternoon",
