@@ -44,6 +44,7 @@
         { "roomNumber": "M202", "label": "Block M · Room M202", "rollNumbers": [] },
         { "roomNumber": "M203", "label": "Block M · Room M203", "rollNumbers": [] },
         { "roomNumber": "M206", "label": "Block M · Room M206", "rollNumbers": [] },
+        { "roomNumber": "M301", "label": "Block M · Room M301", "rollNumbers": [] },
         { "roomNumber": "M207", "label": "Block M · Room M207", "rollNumbers": [] }
       ]
     },
