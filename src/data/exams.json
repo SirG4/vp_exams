@@ -169,6 +169,23 @@
         { "roomNumber": "M511", "label": "Block M · Room M511", "rollNumbers": [] },
         { "roomNumber": "M517", "label": "Block M · Room M517", "rollNumbers": [] }
       ]
+    },
+    {
+      "date": "2026-05-09",
+      "label": "May 09 (Afternoon)",
+      "session": "afternoon",
+      "rooms": [
+        { "roomNumber": "M-202", "label": "Block M · Room M-202", "rollNumbers": [] },
+        { "roomNumber": "M-203", "label": "Block M · Room M-203", "rollNumbers": [] },
+        { "roomNumber": "M-206", "label": "Block M · Room M-206", "rollNumbers": [] },
+        { "roomNumber": "M-301", "label": "Block M · Room M-301", "rollNumbers": [] },
+        { "roomNumber": "M-502", "label": "Block M · Room M-502", "rollNumbers": [] },
+        { "roomNumber": "M-503", "label": "Block M · Room M-503", "rollNumbers": [] },
+        { "roomNumber": "M-508", "label": "Block M · Room M-508", "rollNumbers": [] },
+        { "roomNumber": "M-511", "label": "Block M · Room M-511", "rollNumbers": [] },
+        { "roomNumber": "M-517", "label": "Block M · Room M-517", "rollNumbers": [] },
+        { "roomNumber": "M-518", "label": "Block M · Room M-518", "rollNumbers": [] }
+      ]
     }
   ]
 }
