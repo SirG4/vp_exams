@@ -72,6 +72,15 @@
         { "roomNumber": "M309", "label": "Block M · Room M309", "rollNumbers": [] },
         { "roomNumber": "M315", "label": "Block M · Room M315", "rollNumbers": [] }
       ]
+    },
+    {
+      "date": "2026-05-20",
+      "label": "May 20 (Morning)",
+      "session": "morning",
+      "rooms": [
+        { "roomNumber": "M202", "label": "Block M · Room M202", "rollNumbers": [] },
+        { "roomNumber": "M203", "label": "Block M · Room M203", "rollNumbers": [] }
+      ]
     }
   ]
 }
