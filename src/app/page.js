@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
+import Image from 'next/image';
 import examData from '@/data/exams.json';
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
@@ -254,6 +255,7 @@ function BackButton({ onClick, label }) {
 
 function Dashboard({ exam, room, onBack }) {
   const d = new Date(exam.date + 'T00:00:00');
+  const [showPledge, setShowPledge] = useState(false);
 
   return (
     <div className="h-screen flex flex-col overflow-hidden bg-white">
@@ -265,13 +267,36 @@ function Dashboard({ exam, room, onBack }) {
           {DAYS[d.getDay()]}, {MONTHS[d.getMonth()]} {d.getDate()}, {d.getFullYear()}
         </p>
 
-        <div className="px-5 py-2 rounded-full bg-black text-white text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-black/10">
-          Room {room.roomNumber}
-        </div>
+        {showPledge ? (
+          <button
+            onClick={() => setShowPledge(false)}
+            className="px-5 py-2 rounded-full border border-gray-200 text-sm font-semibold text-black hover:border-black transition-colors"
+          >
+            Back
+          </button>
+        ) : (
+          <button
+            onClick={() => setShowPledge(true)}
+            className="px-5 py-2 rounded-full bg-black text-white text-sm font-semibold hover:bg-gray-800 transition-colors"
+          >
+            Pledge
+          </button>
+        )}
       </header>
 
-      {/* Split panes — no overflow so nothing scrolls */}
-      <div className="flex flex-1 overflow-hidden">
+      {showPledge ? (
+        <section className="flex-1 min-h-0 flex items-center justify-center bg-gray-50 p-6">
+          <Image
+            src="/pledge/pledge.jpg"
+            alt="Exam pledge"
+            width={1241}
+            height={1755}
+            className="max-w-full max-h-full object-contain"
+          />
+        </section>
+      ) : (
+        /* Split panes — no overflow so nothing scrolls */
+        <div className="flex flex-1 overflow-hidden">
 
         {/* LEFT — Seating Plan Image */}
         <section className="w-1/2 flex flex-col border-r border-gray-200 overflow-hidden bg-gray-50/50">
@@ -315,7 +340,8 @@ function Dashboard({ exam, room, onBack }) {
           <ISTDigitalClock />
         </section>
 
-      </div>
+        </div>
+      )}
     </div>
   );
 }
