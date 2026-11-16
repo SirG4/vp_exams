@@ -1,0 +1,1 @@
+setsid nohup npm run dev -- -H 0.0.0.0 -p 3000 >/dev/null 2>&1 &
