@@ -304,7 +304,7 @@ function Dashboard({ exam, room, onBack }) {
             <div className="w-full h-full rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden flex items-center justify-center relative group">
               {/* Constructing image path: /[day][month]/[roomNumber].jpg */}
               <img
-                src={`/${d.getDate()}${MONTHS[d.getMonth()].toLowerCase()}${exam.session ? '_' + exam.session : ''}/${room.roomNumber}.png`}
+                src={`/${d.getDate()}${MONTHS[d.getMonth()].toLowerCase()}${exam.session ? '_' + exam.session : ''}/${room.imageFile || `${room.roomNumber}.png`}`}
                 alt={`Seating plan for Room ${room.roomNumber}`}
                 className="max-w-full max-h-full object-contain p-2 transition-transform duration-500 group-hover:scale-[1.02]"
                 onError={(e) => {
