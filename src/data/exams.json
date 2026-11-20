@@ -29,8 +29,8 @@
       ]
     },
     {
-      "date": "2026-11-19",
-      "label": "November 19 Morning",
+      "date": "2026-11-20",
+      "label": "November 20 Morning",
       "session": "morning",
       "rooms": [
         { "roomNumber": "V012", "label": "Block V · Room V012", "imageFile": "20M_V012.JPG", "rollNumbers": [] },
@@ -38,8 +38,8 @@
       ]
     },
     {
-      "date": "2026-11-19",
-      "label": "November 19 Afternoon",
+      "date": "2026-11-20",
+      "label": "November 20 Afternoon",
       "session": "afternoon",
       "rooms": [
         { "roomNumber": "V002", "label": "Block V · Room V002", "imageFile": "20A_V002.jpg", "rollNumbers": [] },
