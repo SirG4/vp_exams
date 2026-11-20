@@ -1,7 +1,15 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import examData from '@/data/exams.json';
+import vitExamData from '@/data/vit-exams.json';
+import vpExamData from '@/data/vp-exams.json';
+import vsitExamData from '@/data/vsit-exams.json';
+
+const INSTITUTIONS = [
+  { code: 'VIT', data: vitExamData },
+  { code: 'VP', data: vpExamData },
+  { code: 'VSIT', data: vsitExamData },
+];
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
@@ -131,7 +139,7 @@ function DigitalClock() {
 
 // ─── Date Selector ───────────────────────────────────────────────────────────
 
-function DateSelector({ onSelect }) {
+function InstitutionSelector({ onSelect }) {
   return (
     <div className="min-h-screen flex flex-col items-center justify-center px-6 py-16 bg-white">
       <div className="text-center mb-12">
@@ -139,11 +147,49 @@ function DateSelector({ onSelect }) {
           <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
           Exam Portal
         </div>
+        <h1 className="text-5xl font-bold text-black mb-3 tracking-tight">Select Institution</h1>
+        <p className="text-gray-500 text-lg">Choose your campus to view exam seating</p>
+      </div>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-3xl w-full">
+        {INSTITUTIONS.map(({ code }) => (
+          <button
+            key={code}
+            id={`institution-${code.toLowerCase()}`}
+            onClick={() => onSelect(code)}
+            className="group p-8 rounded-2xl border border-gray-200 bg-white hover:border-black hover:shadow-lg transition-all duration-200 text-left"
+          >
+            <p className="text-4xl font-bold text-black">{code}</p>
+            <div className="mt-8 flex justify-end text-gray-400 group-hover:text-black transition-colors">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              </svg>
+            </div>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function DateSelector({ examData, institution, onSelect, onBack }) {
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center px-6 py-16 bg-white">
+      <div className="w-full max-w-3xl mb-8">
+        <BackButton onClick={onBack} label="Back to institutions" />
+      </div>
+      <div className="text-center mb-12">
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black text-white text-sm font-medium mb-6">
+          <span className="w-2 h-2 rounded-full bg-white animate-pulse" />
+          {institution} Exam Portal
+        </div>
         <h1 className="text-5xl font-bold text-black mb-3 tracking-tight">Select Exam Date</h1>
         <p className="text-gray-500 text-lg">Choose a date to view the seating arrangement</p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-3xl w-full">
+      {examData.exams.length === 0 ? (
+        <p className="text-gray-500 text-center">No exam dates are available for {institution} yet.</p>
+      ) : <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 max-w-3xl w-full">
         {examData.exams.map((exam) => {
           const d = new Date(exam.date + 'T00:00:00');
           return (
@@ -169,7 +215,7 @@ function DateSelector({ onSelect }) {
             </button>
           );
         })}
-      </div>
+      </div>}
     </div>
   );
 }
@@ -297,15 +343,25 @@ function Dashboard({ exam, room, onBack }) {
 // ─── Main Page ───────────────────────────────────────────────────────────────
 
 export default function Page() {
-  const [step, setStep]                 = useState('date');
+  const [step, setStep]                 = useState('institution');
+  const [selectedInstitution, setSelectedInstitution] = useState(null);
   const [selectedExam, setSelectedExam] = useState(null);
   const [selectedRoom, setSelectedRoom] = useState(null);
+  const selectedData = INSTITUTIONS.find(({ code }) => code === selectedInstitution)?.data;
 
   return (
     <main>
-      {step === 'date' && (
+      {step === 'institution' && (
+        <InstitutionSelector
+          onSelect={(institution) => { setSelectedInstitution(institution); setStep('date'); }}
+        />
+      )}
+      {step === 'date' && selectedData && (
         <DateSelector
+          examData={selectedData}
+          institution={selectedInstitution}
           onSelect={(exam) => { setSelectedExam(exam); setStep('room'); }}
+          onBack={() => setStep('institution')}
         />
       )}
       {step === 'room' && selectedExam && (

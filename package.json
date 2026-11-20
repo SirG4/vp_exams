@@ -2,13 +2,25 @@
   "name": "vp_exams",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "create:batch-template": "node scripts/create-batch-template.js",
+    "db:migrate": "node scripts/migrate-exams.mjs",
+    "db:test": "node --test scripts/database.test.mjs",
+    "auth:bootstrap-admin": "node scripts/bootstrap-admin.mjs",
+    "auth:test": "node --test scripts/auth.test.mjs",
+    "azure:test": "node --test scripts/azure-storage.test.mjs",
+    "db:migrate-blobs": "node scripts/migrate-blobs-to-azure.mjs",
+    "batch:test": "node --test scripts/batch.test.mjs"
   },
   "dependencies": {
+    "@azure/identity": "^4.14.1",
+    "@azure/storage-blob": "^12.34.0",
+    "exceljs": "^4.4.0",
     "next": "16.2.4",
     "react": "19.2.4",
     "react-dom": "19.2.4"

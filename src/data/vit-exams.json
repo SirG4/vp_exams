@@ -1,0 +1,36 @@
+{
+  "startTime": "09:00",
+  "endTime": "12:15",
+  "exams": [
+    {
+      "date": "2026-11-16",
+      "label": "November 16 (Morning)",
+      "session": "morning",
+      "rooms": [
+        { "roomNumber": "E201", "label": "Block E · Room E201", "rollNumbers": [] },
+        { "roomNumber": "E204", "label": "Block E · Room E204", "rollNumbers": [] },
+        { "roomNumber": "E301", "label": "Block E · Room E301", "rollNumbers": [] },
+        { "roomNumber": "E303", "label": "Block E · Room E303", "rollNumbers": [] },
+        { "roomNumber": "F205", "label": "Block F · Room F205", "rollNumbers": [] },
+        { "roomNumber": "M202", "label": "Block M · Room M202", "rollNumbers": [] },
+        { "roomNumber": "M203", "label": "Block M · Room M203", "rollNumbers": [] },
+        { "roomNumber": "M206", "label": "Block M · Room M206", "rollNumbers": [] },
+        { "roomNumber": "M207", "label": "Block M · Room M207", "rollNumbers": [] },
+        { "roomNumber": "M301", "label": "Block M · Room M301", "rollNumbers": [] },
+        { "roomNumber": "M302", "label": "Block M · Room M302", "rollNumbers": [] },
+        { "roomNumber": "M307", "label": "Block M · Room M307", "rollNumbers": [] },
+        { "roomNumber": "M308", "label": "Block M · Room M308", "rollNumbers": [] },
+        { "roomNumber": "M309", "label": "Block M · Room M309", "rollNumbers": [] },
+        { "roomNumber": "M315", "label": "Block M · Room M315", "rollNumbers": [] },
+        { "roomNumber": "M403", "label": "Block M · Room M403", "rollNumbers": [] },
+        { "roomNumber": "M408", "label": "Block M · Room M408", "rollNumbers": [] },
+        { "roomNumber": "M409", "label": "Block M · Room M409", "rollNumbers": [] },
+        { "roomNumber": "M410", "label": "Block M · Room M410", "rollNumbers": [] },
+        { "roomNumber": "M503", "label": "Block M · Room M503", "rollNumbers": [] },
+        { "roomNumber": "M508", "label": "Block M · Room M508", "rollNumbers": [] },
+        { "roomNumber": "M511", "label": "Block M · Room M511", "rollNumbers": [] },
+        { "roomNumber": "M517", "label": "Block M · Room M517", "rollNumbers": [] }
+      ]
+    }
+  ]
+}
