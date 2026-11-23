@@ -1,15 +1,9 @@
 'use client';
 
 import { useState, useEffect, useCallback, useRef } from 'react';
-import vitExamData from '@/data/vit-exams.json';
-import vpExamData from '@/data/vp-exams.json';
-import vsitExamData from '@/data/vsit-exams.json';
+import Image from 'next/image';
 
-const INSTITUTIONS = [
-  { code: 'VIT', data: vitExamData },
-  { code: 'VP', data: vpExamData },
-  { code: 'VSIT', data: vsitExamData },
-];
+const INSTITUTION_CODES = ['VIT', 'VP', 'VSIT'];
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
@@ -152,7 +146,7 @@ function InstitutionSelector({ onSelect }) {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 max-w-3xl w-full">
-        {INSTITUTIONS.map(({ code }) => (
+        {INSTITUTION_CODES.map((code) => (
           <button
             key={code}
             id={`institution-${code.toLowerCase()}`}
@@ -275,7 +269,7 @@ function BackButton({ onClick, label }) {
 
 function Dashboard({ exam, room, onBack }) {
   const d = new Date(exam.date + 'T00:00:00');
-  const imagePath = `/${d.getDate()}${MONTHS[d.getMonth()].toLowerCase()}${exam.session ? '_' + exam.session : ''}/${room.imageFile || `${room.roomNumber}.jpg`}`;
+  const imagePath = room.imageId ? `/api/images/${room.imageId}` : null;
 
   return (
     <div className="h-screen flex flex-col overflow-hidden bg-white">
@@ -303,25 +297,29 @@ function Dashboard({ exam, room, onBack }) {
           
           <div className="flex-1 p-6 min-h-0">
             <div className="w-full h-full rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden flex items-center justify-center relative group">
-              {/* Constructing image path: /[day][month]/[roomNumber].jpg */}
-              <img 
-                src={imagePath}
-                alt={`Seating plan for Room ${room.roomNumber}`}
-                className="max-w-full max-h-full object-contain p-2 transition-transform duration-500 group-hover:scale-[1.02]"
-                onError={(e) => {
-                  // Fallback if image is missing
-                  e.target.style.display = 'none';
-                  e.target.nextSibling.style.display = 'flex';
-                }}
-              />
+              {/* Published image route; failures fall back below. */}
+              {imagePath ? (
+                <Image
+                  src={imagePath}
+                  alt={`Seating plan for Room ${room.roomNumber}`}
+                  width={1600}
+                  height={900}
+                  unoptimized
+                  className="max-w-full max-h-full object-contain p-2 transition-transform duration-500 group-hover:scale-[1.02]"
+                  onError={(event) => {
+                    event.currentTarget.style.display = 'none';
+                    event.currentTarget.nextSibling.style.display = 'flex';
+                  }}
+                />
+              ) : null}
               
-              {/* Fallback UI when image fails to load */}
-              <div className="hidden absolute inset-0 flex-col items-center justify-center text-gray-400 bg-gray-50 p-8 text-center">
+              {/* Fallback UI when image is missing */}
+              <div className={imagePath ? 'hidden absolute inset-0 flex-col items-center justify-center text-gray-400 bg-gray-50 p-8 text-center' : 'absolute inset-0 flex flex-col items-center justify-center text-gray-400 bg-gray-50 p-8 text-center'}>
                 <svg className="w-12 h-12 mb-3 opacity-20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586 0 0a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
                 <p className="text-sm font-medium">Plan image not found</p>
-                <p className="text-xs mt-1">Expected path: {imagePath}</p>
+                <p className="text-xs mt-1">The seating plan is unavailable.</p>
               </div>
 
               {/* Subtle overlay border */}
@@ -347,10 +345,31 @@ export default function Page() {
   const [selectedInstitution, setSelectedInstitution] = useState(null);
   const [selectedExam, setSelectedExam] = useState(null);
   const [selectedRoom, setSelectedRoom] = useState(null);
-  const selectedData = INSTITUTIONS.find(({ code }) => code === selectedInstitution)?.data;
+  const [institutions, setInstitutions] = useState([]);
+  const [loadError, setLoadError] = useState('');
+
+  useEffect(() => {
+    let active = true;
+    fetch('/api/exams')
+      .then(async (response) => {
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || 'Could not load exam data.');
+        return result;
+      })
+      .then((result) => {
+        if (active) setInstitutions(result.institutions || []);
+      })
+      .catch((error) => {
+        if (active) setLoadError(error.message);
+      });
+    return () => { active = false; };
+  }, []);
+
+  const selectedData = institutions.find(({ code }) => code === selectedInstitution);
 
   return (
     <main>
+      {loadError && <p className="fixed top-4 left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded-lg bg-red-50 text-red-700 text-sm border border-red-200" role="alert">{loadError}</p>}
       {step === 'institution' && (
         <InstitutionSelector
           onSelect={(institution) => { setSelectedInstitution(institution); setStep('date'); }}

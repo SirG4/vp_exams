@@ -84,7 +84,7 @@ try {
             ON CONFLICT(session_id, room_number) DO UPDATE SET
               room_label = excluded.room_label,
               roll_numbers = excluded.roll_numbers,
-              image_id = excluded.image_id
+              image_id = COALESCE(excluded.image_id, rooms.image_id)
           `).run(sessionId, room.roomNumber, room.label ?? null, JSON.stringify(room.rollNumbers ?? []), imageId);
         }
       }
