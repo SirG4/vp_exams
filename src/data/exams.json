@@ -95,6 +95,22 @@
         { "roomNumber": "W005", "label": "Block W · Room W005", "imageFile": "21A_W005.JPG", "rollNumbers": [] },
         { "roomNumber": "W006", "label": "Block W · Room W006", "imageFile": "21A_W006.JPG", "rollNumbers": [] }
       ]
+    },
+    {
+      "date": "2026-11-23",
+      "label": "November 23 Morning",
+      "session": "morning",
+      "rooms": [
+        { "roomNumber": "V013", "label": "Block V · Room V013", "imageFile": "23M_V013.jpg", "rollNumbers": [] }
+      ]
+    },
+    {
+      "date": "2026-11-25",
+      "label": "November 25 Morning",
+      "session": "morning",
+      "rooms": [
+        { "roomNumber": "V013", "label": "Block V · Room V013", "imageFile": "25M_V013.jpg", "rollNumbers": [] }
+      ]
     }
   ]
 }
