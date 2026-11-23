@@ -123,6 +123,36 @@
         { "roomNumber": "M-309", "label": "Block M · Room M-309", "imageFile": "M-309.jpg", "rollNumbers": [] },
         { "roomNumber": "M-315", "label": "Block M · Room M-315", "imageFile": "M-315.jpg", "rollNumbers": [] }
       ]
+    },
+    {
+      "date": "2026-11-23",
+      "label": "November 23 (Afternoon)",
+      "session": "afternoon",
+      "rooms": [
+        { "roomNumber": "B-203", "label": "Block B · Room B-203", "imageFile": "B-203_page-0001.jpg", "rollNumbers": [] },
+        { "roomNumber": "E-101", "label": "Block E · Room E-101", "imageFile": "E-101_page-0001.jpg", "rollNumbers": [] },
+        { "roomNumber": "E-201", "label": "Block E · Room E-201", "imageFile": "E-201_page-0001.jpg", "rollNumbers": [] },
+        { "roomNumber": "E-204", "label": "Block E · Room E-204", "imageFile": "E-204_page-0001.jpg", "rollNumbers": [] },
+        { "roomNumber": "E-301", "label": "Block E · Room E-301", "imageFile": "E-301_page-0001.jpg", "rollNumbers": [] },
+        { "roomNumber": "E-303", "label": "Block E · Room E-303", "imageFile": "E-303_page-0001.jpg", "rollNumbers": [] },
+        { "roomNumber": "F-102", "label": "Block F · Room F-102", "imageFile": "F-102_page-0001.jpg", "rollNumbers": [] },
+        { "roomNumber": "F-201", "label": "Block F · Room F-201", "imageFile": "F-201_page-0001.jpg", "rollNumbers": [] },
+        { "roomNumber": "F-205", "label": "Block F · Room F-205", "imageFile": "F-205_page-0001.jpg", "rollNumbers": [] },
+        { "roomNumber": "F-301", "label": "Block F · Room F-301", "imageFile": "F-301_page-0001.jpg", "rollNumbers": [] },
+        { "roomNumber": "F-302", "label": "Block F · Room F-302", "imageFile": "F-302_page-0001.jpg", "rollNumbers": [] },
+        { "roomNumber": "F-305", "label": "Block F · Room F-305", "imageFile": "F-305_page-0001.jpg", "rollNumbers": [] },
+        { "roomNumber": "M-202", "label": "Block M · Room M-202", "imageFile": "M-202_page-0001.jpg", "rollNumbers": [] },
+        { "roomNumber": "M-203", "label": "Block M · Room M-203", "imageFile": "M-203_page-0001.jpg", "rollNumbers": [] },
+        { "roomNumber": "M-206", "label": "Block M · Room M-206", "imageFile": "M-206_page-0001.jpg", "rollNumbers": [] },
+        { "roomNumber": "M-207", "label": "Block M · Room M-207", "imageFile": "M-207_page-0001.jpg", "rollNumbers": [] },
+        { "roomNumber": "M-208", "label": "Block M · Room M-208", "imageFile": "M-208_page-0001.jpg", "rollNumbers": [] },
+        { "roomNumber": "M-301", "label": "Block M · Room M-301", "imageFile": "M-301_page-0001.jpg", "rollNumbers": [] },
+        { "roomNumber": "M-302", "label": "Block M · Room M-302", "imageFile": "M-302_page-0001.jpg", "rollNumbers": [] },
+        { "roomNumber": "M-307", "label": "Block M · Room M-307", "imageFile": "M-307_page-0001.jpg", "rollNumbers": [] },
+        { "roomNumber": "M-308", "label": "Block M · Room M-308", "imageFile": "M-308_page-0001.jpg", "rollNumbers": [] },
+        { "roomNumber": "M-309", "label": "Block M · Room M-309", "imageFile": "M-309_page-0001.jpg", "rollNumbers": [] },
+        { "roomNumber": "M-315", "label": "Block M · Room M-315", "imageFile": "M-315_page-0001.jpg", "rollNumbers": [] }
+      ]
     }
   ]
 }
