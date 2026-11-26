@@ -137,6 +137,33 @@
         { "roomNumber": "W006", "label": "Block W · Room W006", "imageFile": "25A_W006.JPG", "rollNumbers": [] },
         { "roomNumber": "W008", "label": "Block W · Room W008", "imageFile": "25A_W008.JPG", "rollNumbers": [] }
       ]
+    },
+    {
+      "date": "2026-11-26",
+      "label": "November 26 Afternoon",
+      "session": "afternoon",
+      "rooms": [
+        { "roomNumber": "V012", "label": "Block V · Room V012", "imageFile": "26A_V012.JPG", "rollNumbers": [] },
+        { "roomNumber": "V013", "label": "Block V · Room V013", "imageFile": "26A_V013.JPG", "rollNumbers": [] },
+        { "roomNumber": "V014", "label": "Block V · Room V014", "imageFile": "26A_V014.JPG", "rollNumbers": [] },
+        { "roomNumber": "V201", "label": "Block V · Room V201", "imageFile": "26A_V201.JPG", "rollNumbers": [] },
+        { "roomNumber": "V202", "label": "Block V · Room V202", "imageFile": "26A_V202.JPG", "rollNumbers": [] },
+        { "roomNumber": "V203", "label": "Block V · Room V203", "imageFile": "26A_V203.JPG", "rollNumbers": [] },
+        { "roomNumber": "V207", "label": "Block V · Room V207", "imageFile": "26A_V207.JPG", "rollNumbers": [] },
+        { "roomNumber": "V208", "label": "Block V · Room V208", "imageFile": "26A_V208.JPG", "rollNumbers": [] },
+        { "roomNumber": "V209", "label": "Block V · Room V209", "imageFile": "26A_V209.JPG", "rollNumbers": [] },
+        { "roomNumber": "W001", "label": "Block W · Room W001", "imageFile": "26A_W001.JPG", "rollNumbers": [] },
+        { "roomNumber": "W002", "label": "Block W · Room W002", "imageFile": "26A_W002.JPG", "rollNumbers": [] },
+        { "roomNumber": "W003", "label": "Block W · Room W003", "imageFile": "26A_W003.JPG", "rollNumbers": [] },
+        { "roomNumber": "W004", "label": "Block W · Room W004", "imageFile": "26A_W004.JPG", "rollNumbers": [] },
+        { "roomNumber": "W005", "label": "Block W · Room W005", "imageFile": "26A_W005.JPG", "rollNumbers": [] },
+        { "roomNumber": "W006", "label": "Block W · Room W006", "imageFile": "26A_W006.JPG", "rollNumbers": [] },
+        { "roomNumber": "W008", "label": "Block W · Room W008", "imageFile": "26A_W008.JPG", "rollNumbers": [] },
+        { "roomNumber": "X003", "label": "Block X · Room X003", "imageFile": "26A_X003.JPG", "rollNumbers": [] },
+        { "roomNumber": "X004", "label": "Block X · Room X004", "imageFile": "26A_X004.JPG", "rollNumbers": [] },
+        { "roomNumber": "X005", "label": "Block X · Room X005", "imageFile": "26A_X005.JPG", "rollNumbers": [] },
+        { "roomNumber": "X006", "label": "Block X · Room X006", "imageFile": "26A_X006.JPG", "rollNumbers": [] }
+      ]
     }
   ]
 }
