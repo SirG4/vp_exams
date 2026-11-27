@@ -246,6 +246,30 @@
         { "roomNumber": "M-309", "label": "Block M · Room M-309", "imageFile": "M-309_page-0001.jpg", "rollNumbers": [] },
         { "roomNumber": "M-315", "label": "Block M · Room M-315", "imageFile": "M-315_page-0001.jpg", "rollNumbers": [] }
       ]
+    },
+    {
+      "date": "2026-11-27",
+      "label": "November 27 (Morning)",
+      "session": "morning",
+      "rooms": [
+        { "roomNumber": "B-201", "label": "Block B · Room B-201", "imageFile": "B-201.jpg", "rollNumbers": [] },
+        { "roomNumber": "B-203", "label": "Block B · Room B-203", "imageFile": "B-203.jpg", "rollNumbers": [] },
+        { "roomNumber": "B-301", "label": "Block B · Room B-301", "imageFile": "B-301.jpg", "rollNumbers": [] },
+        { "roomNumber": "E-301", "label": "Block E · Room E-301", "imageFile": "E-301.jpg", "rollNumbers": [] },
+        { "roomNumber": "E-303", "label": "Block E · Room E-303", "imageFile": "E-303.jpg", "rollNumbers": [] },
+        { "roomNumber": "F-102", "label": "Block F · Room F-102", "imageFile": "F-102.jpg", "rollNumbers": [] },
+        { "roomNumber": "F-201", "label": "Block F · Room F-201", "imageFile": "F-201.jpg", "rollNumbers": [] },
+        { "roomNumber": "F-205", "label": "Block F · Room F-205", "imageFile": "F-205.jpg", "rollNumbers": [] },
+        { "roomNumber": "M-202", "label": "Block M · Room M-202", "imageFile": "M-202.jpg", "rollNumbers": [] },
+        { "roomNumber": "M-203", "label": "Block M · Room M-203", "imageFile": "M-203.jpg", "rollNumbers": [] },
+        { "roomNumber": "M-206", "label": "Block M · Room M-206", "imageFile": "M-206.jpg", "rollNumbers": [] },
+        { "roomNumber": "M-301", "label": "Block M · Room M-301", "imageFile": "M-301.jpg", "rollNumbers": [] },
+        { "roomNumber": "M-302", "label": "Block M · Room M-302", "imageFile": "M-302.jpg", "rollNumbers": [] },
+        { "roomNumber": "M-307", "label": "Block M · Room M-307", "imageFile": "M-307.jpg", "rollNumbers": [] },
+        { "roomNumber": "M-308", "label": "Block M · Room M-308", "imageFile": "M-308.jpg", "rollNumbers": [] },
+        { "roomNumber": "M-309", "label": "Block M · Room M-309", "imageFile": "M-309.jpg", "rollNumbers": [] },
+        { "roomNumber": "M-315", "label": "Block M · Room M-315", "imageFile": "M-315.jpg", "rollNumbers": [] }
+      ]
     }
   ]
 }
